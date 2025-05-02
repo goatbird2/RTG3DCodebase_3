@@ -8,9 +8,6 @@ using namespace glm;
 // Example data for cube model
 
 // Packed vertex buffer for cube
-
-// ET: OpenGl needs Points made of values to "draw" bodies
-// ET: Each point has 4 values: x,y,z = poition in 3D space; w = 1.0f
 static float positionArray[] = {
 
 	-1.0f, 1.0f, 1.0f, 1.0f,
@@ -25,10 +22,6 @@ static float positionArray[] = {
 };
 
 // Packed colour buffer for principle axes model
-
-// ET: OpenGl can take RGBA values and use them to colour in the cubes edges
-// ET: R,G,B = colour (red, green, blue); A = alpha (transparency, 1.0 = completely visable)
-
 static float colourArray[] = {
 
 	1.0f, 0.0f, 0.0f, 1.0f,
@@ -44,10 +37,6 @@ static float colourArray[] = {
 
 
 // Line list topology to render principle axes
-
-// ET: We build "bodies" out of triangles, therefore: 
-// ET: We need 3 values per trangle -> 12 triangles for 8 Points
-
 static unsigned int indexArray[] = {
 
 	// Top face
