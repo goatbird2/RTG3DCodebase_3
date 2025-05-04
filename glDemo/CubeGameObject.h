@@ -5,8 +5,8 @@
 // ET: This header file inherits transformations etc. from the GameObject headerfile
 #include "GameObject.h"
 
-// ET: Forward declaration: We are telling the complier that a class "cube" exists (doesnt load it yet tho)
-// ET: We hereby avoid including cube.h directly -> saves compilation time
+// ET: Forward declaration: We are telling the complier that a class "cube" exists 
+// ET: We hereby avoid including cube.h directly -> saves compilation time and reduces compile dependancies
 class Cube;
 
 // ET: Inheritance-> CubeGameObject is a GameObject (enables acess to SetPosition, SetRotation, etc.)
@@ -16,6 +16,6 @@ public:
     CubeGameObject();
     // ET: Deconstructor
     ~CubeGameObject();
-    // ET: Overrides logic per frame to for example. rotate it
+    // ET: Overrides logic per frame for transformations!
     void Update(float deltaTIME) override;
 };
