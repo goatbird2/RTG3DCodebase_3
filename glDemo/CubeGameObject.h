@@ -7,9 +7,9 @@
 // ET: This header file inherits transformations etc. from the GameObject headerfile
 #include "GameObject.h"
 
-/// ET: Thought about using Enums for customizable behavioural modes of cubes
-/// ET: Enums (short for enumeration) = datatype usable to define clear and named modes or categories
-/// ET: Won't use it afterall, as it works on "one or the other" principle, and I want option to make cubes transform in more than 1 way
+/// ETR: Thought about using Enums for customizable behavioural modes of cubes
+/// ETR: Enums (short for enumeration) = datatype usable to define clear and named modes or categories
+/// ETR: Won't use it afterall, as it works on "one or the other" principle, and I want option to make cubes transform in more than 1 way
 //
 //enum class CubeBehavior {
 //None,    // 0
@@ -49,12 +49,12 @@ public:
     // pulse
     void SetPulseOverTime(bool enabled);
 
-// ET: we make this private, but give public access to a function which can set variables internally
+// ET: We make this private, but give public access to a function which can set variables internally
 private:
 
     // Pointer onto cube mesh
     // ET: Pointers: not objects themselves but like "letter with adress" to object, aka: mesh isn't a cube itself, but a pointer to a cube
-    // ET: Why? c++ is savvy! We dont want to kopy big objects like meshes, so, we just "point" at them
+    // ETR: Why? c++ is savvy! We dont want to copy big objects like meshes, so, we just "point" at them
     Cube* mesh;
 
     // ET: Bools set to not have any transformation initially set (default):
