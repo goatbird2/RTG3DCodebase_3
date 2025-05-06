@@ -52,7 +52,7 @@
         if (rotateOverTime) {
 
             // gets current rotation angle
-            glm::vec3 currentRotation = GetRotation();
+            glm::vec4 rot = GetRotation();
 
             // Adds rotaion over time to y axis 
             // ET: (-> spins!) (90° p/s)

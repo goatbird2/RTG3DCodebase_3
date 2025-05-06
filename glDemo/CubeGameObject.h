@@ -37,7 +37,9 @@ public:
     // ET: Method is called to override logic per frame for transformations!
     void Update(float deltaTIME) override;
 
-    // Public setter methods: Functions to customize cube behaviours (not setting the variables directly)
+
+    // Transformation setters
+    // ET: Public setter methods: Functions to customize cube behaviours (not setting the variables directly)
     // ET: bools = type of data with one 2 values: true (yes), false (no). We can use this to check for transformation!
 
     // rotation
@@ -49,10 +51,21 @@ public:
     // pulse
     void SetPulseOverTime(bool enabled);
 
+    // Colour controls
+
+    // colour
+    void SetColor(const glm::vec4& color);
+
+    // transparency
+    void SetAlpha(float alpha);
+
+    // for shaders
+    glm::vec4 GetColor() const;
+
 // ET: We make this private, but give public access to a function which can set variables internally
 private:
 
-    // Pointer onto cube mesh
+    // Pointer onto cube mesh4
     // ET: Pointers: not objects themselves but like "letter with adress" to object, aka: mesh isn't a cube itself, but a pointer to a cube
     // ETR: Why? c++ is savvy! We dont want to copy big objects like meshes, so, we just "point" at them
     Cube* mesh;
@@ -60,12 +73,15 @@ private:
     // ET: Bools set to not have any transformation initially set (default):
     
     // rotation
-    bool rotateOverTime = false;
+    bool rotateOverTime = false; // no rotation
 
     // movement
-    bool moveOverTime = false;
+    bool moveOverTime = false; // no movement
 
     // pulse
-    bool pulseOverTime = false;
+    bool pulseOverTime = false; //no pulse transformation
+
+    // colours & alpaha
+    glm::vec4 color = glm::vec4(1.0f); //opaque white
 
 };
