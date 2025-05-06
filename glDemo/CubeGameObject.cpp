@@ -27,7 +27,7 @@
         /// ETR: it is a bad approach to include the transformations in here, as we want multiple cubes in different variations
         //
         /// ETR: Later it was considered, that "default" values should be set that would then be overriden if so wished when creating a cube in main.
-        /// ETR: This, however, was not a good solution for customizably transformable cubes, as the constructor would OVERRIDE the non-default values in main
+        /// ETR: This, however, was not a good solution for customizably transformable cubes, as the constructor would OVERRIDE the non-default values in main <- CIONSTRUCTORS RUN IMMEDEATELY WHEN OBJECT IS CREATED
         //
         /// ET: Sets position of cube in the room (here: middle)
         ///SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -44,31 +44,44 @@
     }
 
     // Update per frame
+    // ET: aka: this function runs once per frame to enable smooth movement
     // ET: deltaTime = time passed since last frame
     void CubeGameObject::Update(float deltaTime) {
 
-        // ROTATION
+        // rotation
         if (rotateOverTime) {
-            // aktuelle Rotation holen
+
+            // gets current rotation angle
             glm::vec3 currentRotation = GetRotation();
-            // z.B. jede Sekunde um 90° auf der Y-Achse drehen
+
+            // Adds rotaion over time to y axis 
+            // ET: (-> spins!) (90° p/s)
             currentRotation.y += 90.0f * deltaTime;
+
+            // Applies new rotation
             SetRotation(currentRotation);
         }
 
-        // MOVEMENT
+        // movement
         if (moveOverTime) {
+
+            // gets current position (x,y,z)
             glm::vec3 currentPosition = GetPosition();
-            // simple sin-wave movement auf Y-Achse (Hüpfen)
+
+            // jumpia via simple sin() movement on axis
             float time = static_cast<float>(glfwGetTime());
-            currentPosition.y = sin(time) * 2.0f; // hüpft von -2 bis +2
+
+            // jumps from -2 to +2
+            currentPosition.y = sin(time) * 2.0f; 
             SetPosition(currentPosition);
         }
 
-        // PULSE (Scaling)
+        // scaling pulse
         if (pulseOverTime) {
             float time = static_cast<float>(glfwGetTime());
-            float scale = abs(sin(time)) + 0.5f; // Skaliert zw. 0.5 und 1.5
+
+            // Scales between 0.5 and 1.5
+            float scale = abs(sin(time)) + 0.5f; 
             SetScale(glm::vec3(scale));
         }
     }
