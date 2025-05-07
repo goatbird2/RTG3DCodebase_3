@@ -54,7 +54,7 @@ public:
 
 // ET: Internal variables
 protected:
-
+	 
 	string m_name;// ET: Name
 	string m_type;// ET: Type
  
