@@ -367,6 +367,11 @@ void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos)
 
 		g_prevMouseX = _xpos;
 		g_prevMouseY = _ypos;
+
+		
+		g_Scene->MouseMoved(-dy, -dx);
+		
+
 	}
 }
 

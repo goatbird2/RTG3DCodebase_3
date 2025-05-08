@@ -5,7 +5,7 @@
 #pragma once
 
 // ET: This header file inherits transformations etc. from the GameObject headerfile
-#include "GameObject.h"
+#include "ExampleGO.h"
 #include "Model.h" //TO-DO: Ensure Model base class exists
 #include "Shader.h" //TO-DO: Ensure Shader class exists and ShaderManager/Get function
 
@@ -26,7 +26,7 @@
 class Cube;
 
 // ET: Inheritance-> CubeGameObject is a GameObject (enables acess to SetPosition, SetRotation, etc.)
-class CubeGameObject : public GameObject {
+class CubeGameObject : public ExampleGO {
 
 // ET: Accessmodifyers allow us to define, who get's access to what: "public" - everyone can, "private" - only class itself, "protected" - like private but inheriting classes can
 public:

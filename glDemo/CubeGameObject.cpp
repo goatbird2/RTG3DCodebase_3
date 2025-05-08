@@ -3,12 +3,10 @@
 
 // ET: Brings in the header with all declerations
 #include "CubeGameObject.h"
-#include "CubeModel.h"//TO-DO: Create this file with VBO/VAO setup
-#include "ShaderManager.h"//TO-DO: Implement ShaderManager::Get()
 #include "Helper.h"//TO-DO: Ensure Helper::SetUniformLocation exists
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <GL/glew.h>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
+//#include <GL/glew.h>
 
 
 /// ETR: Originally, this was included to make sure this header file inherits from the GameObject headerfile
@@ -21,7 +19,7 @@
 ///#include "core/cube.h"
 
 
- // Constructor 
+ // constructor 
  // ET: a constructor is a function called automatically when a new object is created
 CubeGameObject::CubeGameObject() {
 
@@ -61,20 +59,20 @@ CubeGameObject::CubeGameObject() {
     void CubeGameObject::Load(std::ifstream& file) {
         
         // ET: Calls the base class Load() method, which already already loads name, position, rotation, scale, rot_inc!
-        GameObject::Load(file);
+        ExampleGO::Load(file);
 
         // Acquire shader (data-driven via manifest file entry 'SHADER')
         //TO-DO: Read shader name from manifest into a member variable
-        std::string shaderName = /*TO-DO: get from manifest data */ "basic";
+        //std::string shaderName = /*TO-DO: get from manifest data */ "basic";
 
         // ET: Retrieves a shader from ShaderManager via the name
         // ET: Looks up a shared shade robject and returns it, so we don't have to reload them multiple times!
-        m_shader = ShaderManager::Get(shaderName); //TO-DO: Implement ShaderManager::Get
+        //m_shader = ShaderManager::Get(shaderName); //TO-DO: Implement ShaderManager::Get
 
         // Instantiate and load the cube mesh
         // ET: creates new 3D mesh object of type "CubeModel" and loads itself from the same file
-        m_model = new CubeModel();    //TO-DO: CubeModel must impledment Load(file)
-        m_model->Load(file);          //TO-DO: Ensure Load handles no extra parameters
+        //m_model = new CubeModel();    //TO-DO: CubeModel must impledment Load(file)
+        //m_model->Load(file);          //TO-DO: Ensure Load handles no extra parameters
     }
 
     void CubeGameObject::Tick(float dt) {
@@ -97,10 +95,10 @@ CubeGameObject::CubeGameObject() {
 
     void CubeGameObject::PreRender() {
         //TO-DO: Use ShaderProgram method instead of direct use
-        m_shader->Use();
+        //m_shader->Use();
         GLint loc;
         Helper::SetUniformLocation(m_shader->GetProg(), "modelMatrix", &loc); //TO-DO: Check API
-        glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(m_worldMatrix));
+        glUniformMatrix4fv(loc, 1, GL_FALSE, (GLfloat*)&m_worldMatrix);
     }
 
     void CubeGameObject::Render() {
@@ -113,6 +111,7 @@ CubeGameObject::CubeGameObject() {
     void CubeGameObject::Init(Scene* scene) {
         // no extra setup yet
         //TO-DO: If lights or scene-specific data needed, initialize here
+        ExampleGO::Init(scene);
     }
 
     // Integration: in your Scene loader or main, do:
