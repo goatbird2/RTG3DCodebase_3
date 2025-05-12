@@ -26,7 +26,7 @@ CubeGameObject::CubeGameObject() {
     // ET: Sets the Type of string of this object as "CUBE"
     // ET: Is helpful to tell apart different objects!
     m_type = "CUBE";
-}
+
 
         /// ETRIA:
         /// immedmesh = new Cube();
@@ -43,6 +43,34 @@ CubeGameObject::CubeGameObject() {
         ///SetScale(glm::vec3(1.0f));
         /// ET: Sets rotation (here: resets it to 0)
         ///SetRotation(glm::vec3(0.0f));}
+
+	/*m_numFaces = 6 * 2;
+
+	glGenVertexArrays(1, &m_vao);
+	glBindVertexArray(m_vao);
+
+	// setup vbo for position attribute
+	glGenBuffers(1, &m_vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, 32 * sizeof(float), positionArray, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	// setup vbo for colour attribute
+	glGenBuffers(1, &m_colourBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_colourBuffer);
+	glBufferData(GL_ARRAY_BUFFER, 32 * sizeof(float), colourArray, GL_STATIC_DRAW); 
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(4);
+
+	// setup vbo for cube) index buffer
+	glGenBuffers(1, &m_indexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(unsigned int), indexArray, GL_STATIC_DRAW);
+
+	glBindVertexArray(0);*/
+
+}
      
     
     // Deconstructor (learned what that is in cube.cpp! YAY!)
@@ -59,7 +87,14 @@ CubeGameObject::CubeGameObject() {
     void CubeGameObject::Load(std::ifstream& file) {
         
         // ET: Calls the base class Load() method, which already already loads name, position, rotation, scale, rot_inc!
-        ExampleGO::Load(file);
+        /*ExampleGO::Load(file);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        glDeleteBuffers(1, &m_vertexBuffer);
+        glDeleteBuffers(1, &m_colourBuffer);
+        glDeleteBuffers(1, &m_indexBuffer);*/
 
         // Acquire shader (data-driven via manifest file entry 'SHADER')
         //TO-DO: Read shader name from manifest into a member variable
