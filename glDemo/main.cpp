@@ -14,6 +14,8 @@
 using namespace std;
 using namespace glm;
 
+//testforsomethingtesttesttest
+
 
 #pragma region Global variables
 
@@ -138,6 +140,8 @@ int main()
 	g_principleAxes = new CGPrincipleAxes();
 
 	g_cube = new Cube();
+
+
 
 	g_creatureMesh = new AIMesh(string("Assets\\beast\\beast.obj"));
 	if (g_creatureMesh) {
@@ -367,6 +371,8 @@ void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos)
 
 		g_prevMouseX = _xpos;
 		g_prevMouseY = _ypos;
+
+		g_Scene->MouseMoved(-dy, -dx);
 	}
 }
 

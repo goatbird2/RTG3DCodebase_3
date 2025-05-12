@@ -1,8 +1,9 @@
 #pragma once
 
 #include "core.h"
+#include "Model.h"
 
-class Cube {
+class Cube : public Model{
 
 private:
 

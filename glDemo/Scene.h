@@ -46,6 +46,8 @@ public:
 
 	//initialise links between items in the scene
 	void Init();
+	//handles camera movement
+	void MouseMoved(float dX, float dY);
 
 protected:
 

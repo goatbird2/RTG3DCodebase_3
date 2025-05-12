@@ -235,7 +235,12 @@ void Scene::Load(ifstream& _file)
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
+
+		//ET: Scene creates new AI Model 
+
+		//ET: type = "AI" dynamically allocates an AIModel
 		Model* newModel = ModelFactory::makeNewModel(type);
+		//ET: reads FILE: Assets//....obj fiel as directed to via manifest decleration
 		newModel->Load(_file);
 
 		m_Models.push_back(newModel);
@@ -337,5 +342,12 @@ void Scene::Init()
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
 		(*it)->Init(this);
+	}
+}
+void Scene::MouseMoved(float dY, float dX) 
+{
+	if (m_useCamera) {
+		m_useCamera->rotateCamera(dY, dX);
+
 	}
 }

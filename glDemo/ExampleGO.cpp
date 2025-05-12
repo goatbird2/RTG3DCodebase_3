@@ -7,10 +7,12 @@
 
 ExampleGO::ExampleGO()
 {
+
 }
 
 ExampleGO::~ExampleGO()
 {
+
 }
 
 void ExampleGO::Load(ifstream& _file)

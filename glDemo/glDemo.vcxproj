@@ -137,11 +137,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\RTG3DCodebase_2\glDemo\CubeGameObject.h" />
     <ClInclude Include="AIMesh.h" />
     <ClInclude Include="AIModel.h" />
     <ClInclude Include="ArcballCamera.h" />
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeModel.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="Cube.h" />
@@ -168,11 +170,13 @@
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\RTG3DCodebase_2\glDemo\CubeGameObject.cpp" />
     <ClCompile Include="AIMesh.cpp" />
     <ClCompile Include="AIModel.cpp" />
     <ClCompile Include="ArcballCamera.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="Cube.cpp" />

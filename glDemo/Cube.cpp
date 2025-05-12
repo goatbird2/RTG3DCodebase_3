@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include <GL/glew.h>
 
 
 using namespace std;
@@ -26,7 +27,7 @@ static float colourArray[] = {
 
 	0.0f, 0.0f, 0.0f, 1.0f,
 	0.0f, 0.0f, 0.0f, 1.0f,
-	0.0f, 1.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 0.0f, 1.0f,
 	0.0f, 1.0f, 0.0f, 1.0f,
 
 	0.0f, 0.0f, 1.0f, 1.0f,
@@ -48,7 +49,7 @@ static unsigned int indexArray[] = {
 	6, 7, 4,
 
 	// Right face
-	3, 7, 2, 
+	3, 7, 2, -
 	7, 6, 2,
 
 	// Front face
@@ -67,6 +68,8 @@ static unsigned int indexArray[] = {
 
 
 Cube::Cube() {
+
+	m_type = "cube";
 
 	m_numFaces = 6 * 2;
 
@@ -110,4 +113,11 @@ Cube::~Cube() {
 void Cube::render() {
 	glBindVertexArray(m_vao);
 	glDrawElements(GL_TRIANGLES, m_numFaces * 3 , GL_UNSIGNED_INT, (const GLvoid*)0);
+
+
+	//ET: Lets us know, if it didn't work!
+	GLenum err = glGetError();
+	if (err != GL_NO_ERROR) {
+		std::cout << "OpenGL error: " << err << std::endl;
+	}
 }

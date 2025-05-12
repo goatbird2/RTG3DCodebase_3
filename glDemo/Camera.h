@@ -59,6 +59,7 @@ public:
 
 	//set up shader values for when using this camera
 	virtual void SetRenderValues(unsigned int _prog);
+	void rotateCamera(float _dTheta, float _dPhi);
 
 protected:
 
@@ -68,6 +69,14 @@ protected:
 
 	//my camera is here
 	glm::vec3 m_pos;
+
+	float m_aspect_ratio;
+	float m_theta, m_phi;
+	float m_radius;
+
+	float m_fovY;
+	float m_nearPlane;
+	float m_farPlane;
 
 	//Location this camera is looking at
 	glm::vec3 m_lookAt;

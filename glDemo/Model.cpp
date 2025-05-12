@@ -1,6 +1,7 @@
 #include "Model.h"
 #include "stringHelp.h"
 
+
 Model::Model()
 {
 	m_type = "MODEL";
