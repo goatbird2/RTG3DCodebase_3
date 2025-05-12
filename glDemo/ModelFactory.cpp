@@ -1,6 +1,8 @@
 #include "ModelFactory.h"
 #include <assert.h>
 #include "AIModel.h"
+#include "Cube.h"
+#include "CubeModel.h"
 
 Model* ModelFactory::makeNewModel(std::string _type)
 {
@@ -11,6 +13,16 @@ Model* ModelFactory::makeNewModel(std::string _type)
 	{
 		return new AIModel();
 	}
+	//else if (_type == "CUBE")
+	//{
+		//return new Cube();
+	//}
+
+	else if (_type == "CUBE")
+	{
+		return new CubeModel(); //ET: Now returns the proper Model subclass
+	}
+
 	else
 	{
 		printf("UNKNOWN MODEL TYPE: %s \n", _type.c_str());
