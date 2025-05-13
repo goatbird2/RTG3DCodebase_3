@@ -23,10 +23,14 @@ void ExampleGO::Load(ifstream& _file)
 	StringHelp::String(_file, "SHADER", m_ShaderName);
 
 }
-
+//ET: CAN USE THIS TO MAKRE BEHAVIOURS FOR CUBES
 void ExampleGO::Tick(float _dt)
 {
 	GameObject::Tick(_dt);
+
+
+
+
 }
 
 void ExampleGO::PreRender()

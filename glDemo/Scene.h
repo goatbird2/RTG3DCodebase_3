@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 
+
 using namespace std;
 
 class GameObject;
@@ -20,6 +21,8 @@ class Scene
 public:
 	Scene();
 	~Scene();
+
+	void CycleCamera();
 
 	//tick all GOs
 	void Update(float _dt);

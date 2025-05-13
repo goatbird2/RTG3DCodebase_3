@@ -336,8 +336,9 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			break;
 
 		case GLFW_KEY_SPACE:
-			g_showing++;
-			g_showing = g_showing % g_NumExamples;
+			/*g_showing++;
+			g_showing = g_showing % g_NumExamples;*/
+			g_Scene->CycleCamera();
 
 		default:
 		{
