@@ -41,6 +41,7 @@ protected:
 
 	string m_name;
 	string m_type;
+	string m_renderName;
 
 	vec3		m_pos;
 	vec3		m_rot;
