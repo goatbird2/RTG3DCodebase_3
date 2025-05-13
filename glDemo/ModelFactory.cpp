@@ -3,6 +3,7 @@
 #include "AIModel.h"
 #include "Cube.h"
 #include "CubeModel.h"
+#include "PrincipleAxes.h"
 
 Model* ModelFactory::makeNewModel(std::string _type)
 {
@@ -18,7 +19,12 @@ Model* ModelFactory::makeNewModel(std::string _type)
 		//return new Cube();
 	//}
 
-	else if (_type == "CUBE")
+	if (_type == "AXES")
+	{
+		return new CGPrincipleAxes();
+	}
+
+	if (_type == "CUBE")
 	{
 		return new CubeModel(); //ET: Now returns the proper Model subclass
 	}

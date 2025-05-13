@@ -1,10 +1,11 @@
 #pragma once
 
 #include "core.h"
+#include "Model.h"
 
 
 
-class CGPrincipleAxes  {
+class CGPrincipleAxes: public Model {
 
 private:
 
@@ -20,5 +21,9 @@ public:
 	CGPrincipleAxes();
 	~CGPrincipleAxes();
 
+    void Load(std::ifstream& file);
+
 	void render(bool _showZAxis = true);
+
+	
 };
