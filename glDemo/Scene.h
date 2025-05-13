@@ -30,6 +30,9 @@ public:
 	//add this GO to my list
 	void AddGameObject(GameObject* _new);
 
+	//ET: Method for inputting Camera controls
+	void MoveActiveCamera(glm::vec3 movement);
+
 	//return a pointer to a given thing by its name
 	GameObject* GetGameObject(string _GOName);
 	Camera* GetCamera(string _camName);

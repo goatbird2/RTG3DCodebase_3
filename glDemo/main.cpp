@@ -328,17 +328,47 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 {
 	if (_action == GLFW_PRESS) {
 
-		// check which key was pressed...
+		//ET: check which key was pressed and then do...
 		switch (_key)
 		{
 		case GLFW_KEY_ESCAPE:
 			glfwSetWindowShouldClose(_window, true);
 			break;
 
+			//ET: We no longer want to use space to cycle trough the different "views" but want to use it to cycle trough the cameras isntead!
 		case GLFW_KEY_SPACE:
 			/*g_showing++;
 			g_showing = g_showing % g_NumExamples;*/
 			g_Scene->CycleCamera();
+
+		//ET: We are adding a bunch of GLFW_PRESS keyss to expand keyboard handler for our camera controls! 
+		// (the x.xf can be used to determine the "speed" of the movements)
+
+
+		case GLFW_KEY_W:
+			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, -0.5f)); //ET: Forwards
+			break;
+
+		case GLFW_KEY_S:
+			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, 0.5f)); //ET: Backwards
+			break;
+
+		case GLFW_KEY_A:
+			g_Scene->MoveActiveCamera(glm::vec3(-0.5f, 0.0f, 0.0f)); //ET: Left
+			break;
+
+		case GLFW_KEY_D:
+			g_Scene->MoveActiveCamera(glm::vec3(0.5f, 0.0f, 0.0f)); //ET: Right
+			break;
+
+		case GLFW_KEY_Q:
+			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.5f, 0.0f)); //ET: Upwards
+			break;
+
+		case GLFW_KEY_E:
+			g_Scene->MoveActiveCamera(glm::vec3(0.0f, -0.5f, 0.0f)); //ET: Downwards
+			break;
+
 
 		default:
 		{

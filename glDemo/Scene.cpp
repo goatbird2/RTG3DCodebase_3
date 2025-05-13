@@ -345,6 +345,15 @@ void Scene::Init()
 	}
 }
 
+//ET: Method for adding camera controls
+//ET: Works as "doorway" to move the camera from "outside" (Like main.cpp)
+void Scene::MoveActiveCamera(glm::vec3 movement) {
+	if (m_useCamera) {
+		m_useCamera->Move(movement);
+	}
+}
+
+
 void Scene::CycleCamera()
 {
 	m_useCameraIndex++;
@@ -354,6 +363,10 @@ void Scene::CycleCamera()
 	std::advance(it, m_useCameraIndex);
 
 	m_useCamera = *it;
+
+	//ET: Debug-log to see, which camera is active
+	std::cout << "Switched to camera: " << m_useCamera->GetName() << std::endl;
+
 
 }
 
