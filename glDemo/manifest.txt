@@ -95,7 +95,7 @@ TYPE: AXES
 NAME: AXES
 }
 
-TEXTURES 5
+TEXTURES 6
 {
 TYPE: FIF_BMP
 NAME: BEAST
@@ -120,6 +120,11 @@ FILE: Assets\\Textures\\stars.jpg
 TYPE: FIF_JPEG
 NAME: STARS2
 FILE: Assets\\Textures\\stars2.jpg
+}
+{
+TYPE: FIF_PNG
+NAME: SMILESTONE
+FILE: Assets\\Textures\\smilestone.png
 }
 
 SHADERS 2
@@ -176,7 +181,7 @@ ROT: 0.0 0.0 0.0
 SCALE: 0.5 0.5 0.5
 ROTINC: 0.0 0.1 0.001
 MODEL: CUBEOBJ
-TEXTURE: STARS2
+TEXTURE: SMILESTONE
 SHADER: TEXDIR
 }
 {
