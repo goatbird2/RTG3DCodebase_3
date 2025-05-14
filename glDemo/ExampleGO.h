@@ -23,6 +23,7 @@ public:
 	virtual void Render();
 
 	virtual void Init(Scene* _scene);
+	
 
 protected:
 

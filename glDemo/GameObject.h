@@ -41,6 +41,10 @@ public:
 
 	//this GameObject should be drawn in THIS render pass
 	RenderPass GetRP() { return m_RP; }
+	void MoveX(float _dir);
+	void MoveY(float _dir);
+	void Rotate(float _dir);
+
 
 protected:
 

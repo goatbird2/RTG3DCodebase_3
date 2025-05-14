@@ -461,3 +461,25 @@ void Scene::MouseMoved(float dY, float dX)
 
 	}
 }
+void Scene::ManipulateObject(int type,float dir)
+{
+	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		if ((*it)->GetName() == "BEAST")
+		{
+			if (type == 0)
+			{
+				(*it)->MoveX(dir);
+			}
+			else if (type == 1)
+			{
+				(*it)->MoveY(dir);
+			}
+			else if (type == 2)
+			{
+				(*it)->Rotate(dir);
+			}
+
+		}
+	}
+}

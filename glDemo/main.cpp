@@ -46,6 +46,10 @@ AIMesh* g_planetMesh = nullptr;
 int g_showing = 0;
 int g_NumExamples = 3;
 
+bool jPressed = false;
+bool lPressed = false;
+bool rPressed = false;
+
 //Global Game Object
 Scene* g_Scene = nullptr;
 
@@ -384,7 +388,60 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			g_Scene->MoveActiveCamera(glm::vec3(0.0f, -0.5f, 0.0f)); //ET: Downwards
 			break;
 
+		case GLFW_KEY_L:
+				lPressed = true;
+			break;
 
+		case GLFW_KEY_J:
+			jPressed = true;
+			break;
+
+		case GLFW_KEY_R:
+			rPressed = true;
+			break;
+		case GLFW_KEY_UP:
+			if (jPressed)
+			{
+				//call function for whatever
+				std::cout << "j and up pressed " << std::endl;
+				g_Scene->ManipulateObject(0, 1.0f);
+			}
+			else if (lPressed)
+			{
+				//call function for whatever
+				std::cout << "l and up pressed " << std::endl;
+				g_Scene->ManipulateObject(1, 1.0f);
+
+			}
+			else if (rPressed)
+			{
+				//call function for whatever
+				std::cout << "r and up pressed " << std::endl;
+				g_Scene->ManipulateObject(2, 20.0f);
+			}
+			break;
+
+		case GLFW_KEY_DOWN:
+			if (jPressed)
+			{
+				//call function for whatever
+				std::cout << "j and down pressed " << std::endl;
+				g_Scene->ManipulateObject(0, -1.0f);
+			}
+			else if (lPressed)
+			{
+				//call function for whatever
+				std::cout << "l and down pressed " << std::endl;
+				g_Scene->ManipulateObject(1, -1.0f);
+			}
+			else if (rPressed)
+			{
+				//call function for whatever
+				std::cout << "r and down pressed " << std::endl;
+				g_Scene->ManipulateObject(2, -20.0f);
+			}
+			break;
+			break;
 		default:
 		{
 		}
@@ -395,6 +452,18 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		// handle key release events
 		switch (_key)
 		{
+
+		case GLFW_KEY_L:
+			lPressed = false;
+			break;
+
+		case GLFW_KEY_J:
+			jPressed = false;
+			break;
+
+		case GLFW_KEY_R:
+			rPressed = false;
+			break;
 		default:
 		{
 		}

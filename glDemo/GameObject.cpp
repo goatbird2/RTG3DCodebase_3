@@ -61,3 +61,15 @@ void GameObject::Init(Scene* _scene)
 {
 	//I have nothing to link up to
 }
+void GameObject::MoveX(float _dir)
+{
+	m_pos.x += _dir;
+}
+void GameObject::MoveY(float _dir)
+{
+	m_pos.y += _dir;
+}
+void GameObject::Rotate(float _dir)
+{
+	m_rot.z += _dir;
+}

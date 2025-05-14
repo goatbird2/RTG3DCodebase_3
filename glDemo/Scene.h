@@ -54,6 +54,7 @@ public:
 	void Init();
 	//handles camera movement
 	void MouseMoved(float dX, float dY);
+	void ManipulateObject(int type, float dir);
 
 protected:
 

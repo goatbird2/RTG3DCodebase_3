@@ -9,6 +9,7 @@ in SimplePacket {
 
 } inputFragment;
 
+float alpha;
 
 layout (location=0) out vec4 fragColour;
 
