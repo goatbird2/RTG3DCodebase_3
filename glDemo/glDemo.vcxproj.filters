@@ -219,5 +219,11 @@
     <None Include="Assets\Shaders\flatColour.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\twist.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\twist.vs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

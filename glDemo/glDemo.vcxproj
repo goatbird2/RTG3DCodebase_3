@@ -204,6 +204,8 @@
     <None Include="Assets\Shaders\flatColour.vert" />
     <None Include="Assets\Shaders\texture-directional.frag" />
     <None Include="Assets\Shaders\texture-directional.vert" />
+    <None Include="Assets\Shaders\twist.fs" />
+    <None Include="Assets\Shaders\twist.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
