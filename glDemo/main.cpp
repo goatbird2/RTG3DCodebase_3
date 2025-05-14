@@ -125,12 +125,22 @@ int main()
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 
+
+	//ET: Enables Depth buffer (z buffer)
+	// ET: Checks every time open GL wants to draw a new pixel "Is this new pixel closer to the camera than the pixel already drawn here?"
+	// Yes: new pixel replaces old one
+	// NO: New pixel gets ignored
+	// -> This is how objects get drawn in correct distance
+	// rule is set specifically in GL_LEQUAL below
 	glEnable(GL_DEPTH_TEST);
 
 	//ET: allows us to calculate half-transparent Pixel correctly with BG
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+
+	// ET: LEQUAL = Less than equal
+	// ET: "Only draw a pixel, if its depth (=distance to cam) is smaller or equal to what is already there"
 	glDepthFunc(GL_LEQUAL);
 
 	//

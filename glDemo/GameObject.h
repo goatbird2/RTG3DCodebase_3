@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string>
 #include "RenderPass.h"
+#include <glm/glm.hpp>
 
 using namespace std;
 class Scene;
@@ -30,6 +31,10 @@ public:
 	void SetName(string _name) { m_name = _name; }
 	string GetName() { return m_name; }
 	GLuint GetShaderProg() { return m_ShaderProg; }
+
+	//ET: getter for position (needed for transparency)
+	glm::vec3 GetPos() const { return m_pos; }
+
 
 	//scene maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
 	virtual void Init(Scene* _scene);

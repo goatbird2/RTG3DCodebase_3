@@ -1,4 +1,7 @@
 #include "Scene.h"
+#include <glm/glm.hpp>
+#include <glm/gtx/norm.hpp> 
+#include <algorithm>
 #include "GameObject.h"
 #include "CameraFactory.h"
 #include "Camera.h"
@@ -137,11 +140,11 @@ Shader* Scene::GetShader(string _shaderName)
 //Render Everything
 void Scene::Render()
 {
-	//TODO: Set up for the Opaque Render Pass will go here
-	//check out the example stuff back in main.cpp to see what needs setting up here
+	// RENDERPASS: OPAQUE
+
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		if ((*it)->GetRP() & RP_OPAQUE)// TODO: note the bit-wise operation. Why?
+		if ((*it)->GetRP() & RP_OPAQUE)
 		{
 			//set shader program using
 			GLuint SP = (*it)->GetShaderProg();
@@ -160,35 +163,89 @@ void Scene::Render()
 			(*it)->Render();
 		}
 
+
+		// RENDER PASS: TRANSPARENT
+		//ET: This is where we are going to render the transparent objects, sorted from back-to front
+
+		/// Old version: doesn't work for blending
+		//
+		//if ((*it)->GetRP() & RP_TRANSPARENT)
+		//{
+
+		//	glEnable(GL_BLEND);
+		//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//	glDepthMask(GL_FALSE);
+
+		//	//set shader program using
+		//	GLuint SP = (*it)->GetShaderProg();
+		//	glUseProgram(SP);
+
+		//	//set up for uniform shader values for current camera
+		//	m_useCamera->SetRenderValues(SP);
+
+		//	//loop through setting up uniform shader values for anything else
+		//	SetShaderUniforms(SP);
+
+		//	//set any uniform shader values for the actual model
+		//	(*it)->PreRender();
+
+		//	//actually render the GameObject
+		//	(*it)->Render();
+
+		//	glDepthMask(GL_TRUE);
+		//	glDisable(GL_BLEND);
+		//}
+	}
+
+	// New Version 
+	// ET: Collects Transparent objects, sorts them, renders them based on depth:
+
+
+	// Temporary list for transparent objects
+	std::vector<GameObject*> transparentObjects;
+
+	// Collection of transparent objects
+	for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); ++it)
+	{
 		if ((*it)->GetRP() & RP_TRANSPARENT)
 		{
-
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glDepthMask(GL_FALSE);
-
-			//set shader program using
-			GLuint SP = (*it)->GetShaderProg();
-			glUseProgram(SP);
-
-			//set up for uniform shader values for current camera
-			m_useCamera->SetRenderValues(SP);
-
-			//loop through setting up uniform shader values for anything else
-			SetShaderUniforms(SP);
-
-			//set any uniform shader values for the actual model
-			(*it)->PreRender();
-
-			//actually render the GameObject
-			(*it)->Render();
-
-			glDepthMask(GL_TRUE);
-			glDisable(GL_BLEND);
+			transparentObjects.push_back(*it);
 		}
 	}
 
-	//TODO: now do the same for RP_TRANSPARENT here
+	// Sorting collected objects based on distance to camera
+	//ET: = from back (far) to front (close)
+	std::sort(transparentObjects.begin(), transparentObjects.end(),
+		[this](GameObject* a, GameObject* b) {
+			glm::vec3 camPos = m_useCamera->GetPos(); //has to be vec3
+			glm::vec3 aPos = a->GetPos();
+			glm::vec3 bPos = b->GetPos();
+
+			float distA = glm::distance(camPos, aPos);
+			float distB = glm::distance(camPos, bPos);
+
+			return distA > distB; // weiter weg zuerst
+		});
+
+
+	// rendering of transparent objects in "correct" order
+	for (GameObject* go : transparentObjects)
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDepthMask(GL_FALSE); //ET: prevents overriding of depth
+
+		GLuint SP = go->GetShaderProg();
+		glUseProgram(SP);
+
+		m_useCamera->SetRenderValues(SP);
+		SetShaderUniforms(SP);
+		go->PreRender();
+		go->Render();
+
+		glDepthMask(GL_TRUE); //ET: reactivates
+		glDisable(GL_BLEND);
+	}
 }
 
 void Scene::SetShaderUniforms(GLuint _shaderprog)
