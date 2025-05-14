@@ -46,12 +46,22 @@ public:
 	void Rotate(float _dir);
 
 
+	//ET: For Heartbeat Pulse of objects
+	bool m_isPulsing = false;
+	string m_Pulsing;
+	float m_pulseSpeed = 3.0f; //ET: Speed
+	float m_pulseAmplitude = 0.3f; //ET: "Strenght"
+	float m_pulseBaseScale = 1.0f; //ET: Base scale
+	float m_pulseTime = 0.0f; //ET: goes up over time
+
+
 protected:
 
 	string m_name;
 	string m_type;
 	string m_renderName;
 
+	vec3		m_scale_incr = vec3(0.001f, 0.001f, 0.001f);
 	vec3		m_pos;
 	vec3		m_rot;
 	vec3		m_scale;
