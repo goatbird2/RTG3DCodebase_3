@@ -61,6 +61,8 @@ public:
 	virtual void SetRenderValues(unsigned int _prog);
 	void rotateCamera(float _dTheta, float _dPhi);
 
+	void setAspect(float _aspect);
+
 protected:
 
 	//standard transforms needed to render with this a basic camera

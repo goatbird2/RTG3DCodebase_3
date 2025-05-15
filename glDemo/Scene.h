@@ -56,6 +56,8 @@ public:
 	void MouseMoved(float dX, float dY);
 	void ManipulateObject(int type, float dir);
 
+	Camera* GetCurrentCamera() const;
+
 protected:
 
 	//data structures containing pointers to all our stuff

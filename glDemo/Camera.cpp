@@ -138,3 +138,9 @@ void Camera::rotateCamera(float _dTheta, float _dPhi)
 	// You can calculate derived values if necessary (e.g., updating position)
 	// calculateDerivedValues();
 }
+
+void Camera::setAspect(float _aspect) {
+
+	this->m_aspect_ratio = _aspect;
+	
+}

@@ -330,15 +330,15 @@ void updateScene()
 //none of this is currently passed to the Game object
 //probably a good idea to do that
 
-// Function to call when window resized
-void resizeWindow(GLFWwindow* _window, int _width, int _height)
-{
-	if (g_mainCamera) {
-
-		g_mainCamera->setAspect((float)_width / (float)_height);
-	}
-
-	glViewport(0, 0, _width, _height);		// Draw into entire window
+void resizeWindow(GLFWwindow* _window, int _width, int _height)  
+{  
+   if (g_mainCamera) {  
+       g_mainCamera->setAspect((float)_width / (float)_height);  
+   }  
+   if (g_Scene && g_Scene->GetCurrentCamera()) {  
+       g_Scene->GetCurrentCamera()->setAspect((float)_width / (float)_height);
+   }  
+   glViewport(0, 0, _width, _height); // Draw into entire window  
 }
 
 

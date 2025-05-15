@@ -79,6 +79,11 @@ Camera* Scene::GetCamera(string _camName)
 	assert(0);
 	return nullptr;
 }
+//ET: This is the function that allows us to move the active camera
+Camera* Scene::GetCurrentCamera() const  
+{  
+   return m_useCamera;  
+}
 
 Light* Scene::GetLight(string _lightName)
 {
