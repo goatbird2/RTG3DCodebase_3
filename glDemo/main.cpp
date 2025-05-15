@@ -399,23 +399,24 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_R:
 			rPressed = true;
 			break;
+
 		case GLFW_KEY_UP:
 			if (jPressed)
 			{
-				//call function for whatever
+				
 				std::cout << "j and up pressed " << std::endl;
 				g_Scene->ManipulateObject(0, 1.0f);
 			}
 			else if (lPressed)
 			{
-				//call function for whatever
+				
 				std::cout << "l and up pressed " << std::endl;
 				g_Scene->ManipulateObject(1, 1.0f);
 
 			}
 			else if (rPressed)
 			{
-				//call function for whatever
+			
 				std::cout << "r and up pressed " << std::endl;
 				g_Scene->ManipulateObject(2, 20.0f);
 			}
@@ -424,7 +425,7 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_DOWN:
 			if (jPressed)
 			{
-				//call function for whatever
+				
 				std::cout << "j and down pressed " << std::endl;
 				g_Scene->ManipulateObject(0, -1.0f);
 			}
@@ -441,7 +442,27 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 				g_Scene->ManipulateObject(2, -20.0f);
 			}
 			break;
+
+
+		case GLFW_KEY_RIGHT:
+			if (jPressed)
+			{
+
+				std::cout << "j and right pressed " << std::endl;
+				g_Scene->ManipulateObject(3, 1.0f);
+			}
 			break;
+
+		case GLFW_KEY_LEFT:
+			if (jPressed)
+			{
+
+				std::cout << "j and left pressed " << std::endl;
+				g_Scene->ManipulateObject(3, -1.0f);
+			}
+			
+			break;
+			
 		default:
 		{
 		}

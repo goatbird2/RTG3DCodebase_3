@@ -121,3 +121,8 @@ void GameObject::Rotate(float _dir)
 	m_rot.z += _dir;
 	
 }
+void GameObject::MoveZ(float _dir)
+	{
+	m_pos.z += _dir;
+
+}

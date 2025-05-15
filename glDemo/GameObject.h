@@ -44,6 +44,7 @@ public:
 	void MoveX(float _dir);
 	void MoveY(float _dir);
 	void Rotate(float _dir);
+	void MoveZ(float _dir);
 
 
 	//ET: For Heartbeat Pulse of objects
