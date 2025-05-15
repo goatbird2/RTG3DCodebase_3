@@ -62,10 +62,14 @@ protected:
 	string m_renderName;
 
 	vec3		m_scale_incr = vec3(0.001f, 0.001f, 0.001f);
+	float		m_num_pos;
 	vec3		m_pos;
 	vec3		m_rot;
 	vec3		m_scale;
 	vec3		m_rot_incr;
+
+	std::vector<vec3> m_posList;
+
 
 	glm::mat4	m_worldMatrix;
 

@@ -28,7 +28,9 @@ void ExampleGO::Tick(float _dt)
 {
 	GameObject::Tick(_dt);
 
+	
 
+	
 
 
 }
@@ -51,7 +53,36 @@ void ExampleGO::PreRender()
 
 void ExampleGO::Render()
 {
-	m_model->Render();
+	//ET:orginially here: m_model->Render();
+
+	if (m_num_pos <= 1) //ET: if only one position
+	{
+		m_worldMatrix = glm::translate(mat4(1.0), m_pos);
+		m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
+
+		PreRender();
+		m_model->Render();
+	}
+	else //ET: if multiple positions
+	{
+		for (vec3 pos : m_posList)
+		{
+			m_worldMatrix = glm::translate(mat4(1.0), pos);
+
+			m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
+
+			PreRender();
+			m_model->Render();
+		}
+	}
+
+	
+
+
 }
 
 void ExampleGO::Init(Scene* _scene)

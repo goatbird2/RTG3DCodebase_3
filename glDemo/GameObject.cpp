@@ -17,7 +17,22 @@ GameObject::~GameObject()
 void GameObject::Load(ifstream& _file)
 {
 	StringHelp::String(_file, "NAME", m_name);
-	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+	StringHelp::Float(_file, "NUMPOS", m_num_pos);
+	
+	if (m_num_pos <= 1) {
+		StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+	}
+	else if (m_num_pos > 1) {
+		for (int i = 0; i < m_num_pos; i++)
+		{
+			StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+			m_posList.push_back(m_pos);
+		}
+	}
+	
+	
+	/*StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);*/
+
 	StringHelp::Float3(_file, "ROT", m_rot.x, m_rot.y, m_rot.z);
 	StringHelp::Float3(_file, "SCALE", m_scale.x, m_scale.y, m_scale.z);
 	StringHelp::Float3(_file, "ROT INC", m_rot_incr.x, m_rot_incr.y, m_rot_incr.z);
