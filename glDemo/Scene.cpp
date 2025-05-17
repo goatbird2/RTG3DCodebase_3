@@ -408,7 +408,7 @@ void Scene::Init()
 	int count = 0;
 	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
 	{
-		(*it)->Init(100, 100, this);// TODO: set correct screen sizes here
+		(*it)->Init(100, 100, this);
 
 		//if a camera is called MAIN
 		//this will be the starting camera used
@@ -431,6 +431,13 @@ void Scene::Init()
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
 		(*it)->Init(this);
+	}
+
+	// Make CAMPC camera follow the BEAST
+	Camera* campcCam = GetCamera("CAMPC");
+	GameObject* beast = GetGameObject("BEAST");
+	if (campcCam && beast) {
+		campcCam->SetFollowTarget(beast);
 	}
 }
 

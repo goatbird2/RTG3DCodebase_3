@@ -2,6 +2,7 @@
 #include "helper.h"
 #include <fstream>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
 #include "stringHelp.h"
 
 using namespace std;
@@ -55,11 +56,25 @@ void Camera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspect_ratio, m_nearPlane, m_farPlane);
 }
 
+void Camera::SetFollowTarget(GameObject* target) {
+	m_followTarget = target;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////
 // Tick() - Update the camera's view and projection matrices
 /////////////////////////////////////////////////////////////////////////////////////
 void Camera::Tick(float _dt)
 {
+	// Follow target logic
+	//ET: If following a target, update the camera position and look-at point
+	//ET: We do this, so that the camera can follow a target (creature)
+	//ET: This will override any manual camera movement when a follow target is set!
+	if (m_followTarget) {
+		glm::vec3 targetPos = m_followTarget->GetPos();
+		glm::vec3 offset(0.0f, 5.0f, -4.0f); //ET: We can adjust the offset as needed!!!
+		m_pos = targetPos + offset;
+		m_lookAt = targetPos;
+
 	// Recalculate aspect ratio (we could also pass it as an argument if the screen size changes)
 	// Here, we're just keeping the logic from the original code:
 	// ET: Ensuring aspect ratio is valid by checking screen dimensions
@@ -74,23 +89,25 @@ void Camera::Tick(float _dt)
 	// We already have m_aspect_ratio set from Init(), no need to do it again here:
 	// float aspectRatio = m_aspect_ratio > 0 ? m_aspect_ratio : 1.0f;
 
-	// Calculate theta and phi in radians
-	const float theta = glm::radians<float>(m_theta);
-	const float phi = glm::radians<float>(m_phi);
-
-	// Update the camera's look-at position based on spherical coordinates
-	m_lookAt = m_pos + glm::vec3(sinf(phi) * cosf(theta), sinf(theta), cosf(phi) * cosf(theta));
+	}
+ else {
+		// ET: Free camera logic (spherical coordinates)
+		// Calculate theta and phi in radians
+		const float theta = glm::radians<float>(m_theta);
+		const float phi = glm::radians<float>(m_phi);
+		m_lookAt = m_pos + glm::vec3(sinf(phi) * cosf(theta), sinf(theta), cosf(phi) * cosf(theta));
+		}
 
 	// Update the view matrix using the camera position and look-at target
-	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, vec3(0, 1, 0));  // Camera 'up' is the positive y-axis
+	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, glm::vec3(0, 1, 0));
 
 	// Recalculate the projection matrix with the current aspect ratio
 	// COMMENTED OUT: Aspect ratio is already stored in m_aspect_ratio
 	// m_projectionMatrix = glm::perspective(glm::radians(m_fovY), aspectRatio, m_nearPlane, m_farPlane);
 	m_projectionMatrix = glm::perspective(glm::radians(m_fovY), m_aspect_ratio, m_nearPlane, m_farPlane);
+}
 	// Optional: You can print the view matrix or lookAt to verify camera positions
 	// cout << glm::to_string(m_lookAt) << endl;
-}
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Load() - Load camera settings from a file
@@ -138,6 +155,7 @@ void Camera::rotateCamera(float _dTheta, float _dPhi)
 	// You can calculate derived values if necessary (e.g., updating position)
 	// calculateDerivedValues();
 }
+
 
 void Camera::setAspect(float _aspect) {
 

@@ -3,13 +3,13 @@
 #include "glm/gtc/matrix_transform.hpp" 
 #include "glm/gtc/type_ptr.hpp"
 #include "core.h"
+#include "GameObject.h"
 #include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
 
 using namespace std;
-
 using namespace glm;
 
 class cTransform;
@@ -28,6 +28,9 @@ public:
 	//scene maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
 	//TODO move _w and _h to tick for cameras so apsect ratio can be updated if we change the size of the window
 	virtual void Init(float _w, float _h, Scene* _scene);
+
+	//ET: for the camera to follow a target
+	void SetFollowTarget(GameObject* target);
 
 	//tick this camera
 	//TODO: possibly pass keyboard / mouse stuff down here for player controls?
@@ -68,6 +71,10 @@ protected:
 	//standard transforms needed to render with this a basic camera
 	glm::mat4 m_projectionMatrix;		// projection matrix
 	glm::mat4 m_viewMatrix;			// view matrix
+
+	//ET: for the camera to follow a target
+	GameObject* m_followTarget = nullptr;;
+
 
 	//my camera is here
 	glm::vec3 m_pos;
