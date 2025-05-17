@@ -56,6 +56,7 @@ void Camera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspect_ratio, m_nearPlane, m_farPlane);
 }
 
+//ET: Used to set the camera to follow a target
 void Camera::SetFollowTarget(GameObject* target) {
 	m_followTarget = target;
 }
