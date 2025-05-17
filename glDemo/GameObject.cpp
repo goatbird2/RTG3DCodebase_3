@@ -18,6 +18,9 @@ void GameObject::Load(ifstream& _file)
 {
 	StringHelp::String(_file, "NAME", m_name);
 	StringHelp::Float(_file, "NUMPOS", m_num_pos);
+
+	//ET: So that list is cleared and not filled with old data, aka, not drawing new instances
+	m_posList.clear();
 	
 	if (m_num_pos <= 1) {
 		StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
