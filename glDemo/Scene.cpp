@@ -468,17 +468,21 @@ void Scene::CycleCamera()
 
 void Scene::MouseMoved(float dY, float dX) 
 {
-	if (m_useCamera) {
+	if (m_useCamera) 
+	{
 		m_useCamera->rotateCamera(dY, dX);
 
 	}
 }
-void Scene::ManipulateObject(int type,float dir)
+
+void Scene::ManipulateObject(int type, float dir)
 {
-	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); ++it)
 	{
 		if ((*it)->GetName() == "BEAST")
 		{
+			///ET: Old logic, where movement was not object-relative
+			/*
 			if (type == 0)
 			{
 				(*it)->MoveX(dir);
@@ -499,6 +503,17 @@ void Scene::ManipulateObject(int type,float dir)
 			{
 				(*it)->RotateY(dir);
 			}
+			*/
+
+			// type: 0 = forward/back, 1 = left/right, 2 = yaw, 3 = up/down
+			if (type == 0) // Forward/backward (J+Up/J+Down)
+				(*it)->MoveRelative(glm::vec3(0, 0, 1), dir); // Forward in local space
+			else if (type == 1) // Left/right (J+Left/J+Right)
+				(*it)->MoveRelative(glm::vec3(1, 0, 0), dir); // Left in local space
+			else if (type == 2) // Yaw (R+Left/R+Right)
+				(*it)->RotateY(dir);
+			else if (type == 3) // Up/down (L+Up/L+Down)
+				(*it)->MoveY(dir);
 		}
 	}
 }

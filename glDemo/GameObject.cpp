@@ -94,6 +94,19 @@ void GameObject::Tick(float _dt)
 	}
 }
 
+//ET: MoveRelative Funtion
+//ET: This function allows us to move the object in a local direction
+//ET: aka, I want keys to move the object in the direction it is facing
+void GameObject::MoveRelative(const glm::vec3& localDir, float amount)
+{
+	// Only use yaw for horizontal movement
+	float yaw = glm::radians(m_rot.y);
+	glm::mat4 rot = glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0, 1, 0));
+	glm::vec3 worldDir = glm::vec3(rot * glm::vec4(localDir, 0.0f));
+	m_pos += worldDir * amount;
+}
+
+
 void GameObject::PreRender()
 {
 	// Setup model transform

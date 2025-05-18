@@ -164,11 +164,26 @@ void Camera::rotateCamera(float _dTheta, float _dPhi)
 
 	// You can calculate derived values if necessary (e.g., updating position)
 	// calculateDerivedValues();
+
+
 }
 
 
-void Camera::setAspect(float _aspect) {
+void Camera::setAspect(float _aspect) 
+{
 
 	this->m_aspect_ratio = _aspect;
-	
+}
+
+// Move the camera in its local space (relative to its orientation)
+void Camera::MoveLocal(const glm::vec3& localDir, float amount)
+{
+	// Calculate the forward, right, and up vectors from the view matrix or orientation
+	glm::vec3 forward = glm::normalize(m_lookAt - m_pos);
+	glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+	glm::vec3 up = glm::normalize(glm::cross(right, forward));
+
+	glm::vec3 move = localDir.x * right + localDir.y * up + localDir.z * forward;
+	m_pos += move * amount;
+	m_lookAt += move * amount;
 }

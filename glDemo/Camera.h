@@ -65,6 +65,9 @@ public:
 	void rotateCamera(float _dTheta, float _dPhi);
 
 	void setAspect(float _aspect);
+	void MoveLocal(const glm::vec3& localDir, float amount);
+
+	void calculateDerivedValues();
 
 protected:
 

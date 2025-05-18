@@ -360,36 +360,43 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			g_showing = g_showing % g_NumExamples;*/
 			g_Scene->CycleCamera();
 
-		//ET: We are adding a bunch of GLFW_PRESS keyss to expand keyboard handler for our camera controls! 
-		// (the x.xf can be used to determine the "speed" of the movements)
 
+		//ET: We are adding a bunch of GLFW_PRESS keyss to expand keyboard handler for our camera controls! 
+		
 
 		case GLFW_KEY_S:
-			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, -0.5f)); //ET: BACKWARDS
+			//g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, -0.5f)); //ET: BACKWARDS Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(0, 0, -1), 0.5f); //ET: Move camera backwards relative to view
+
 			break;
 
 		case GLFW_KEY_W:
-			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, 0.5f)); //ET: DOWNWARDS
+			//g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.0f, 0.5f)); //ET: FORWARDS Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(0, 0, 1), 0.5f); //ET: Move camera forwards relative to view
 			break;
 
 		case GLFW_KEY_D:
-			g_Scene->MoveActiveCamera(glm::vec3(-0.5f, 0.0f, 0.0f)); //ET: RIGHT
+			//g_Scene->MoveActiveCamera(glm::vec3(-0.5f, 0.0f, 0.0f)); //ET: RIGHT Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(1, 0, 0), 0.5f); //ET: Move camera right relative to view
 			break;
 
 		case GLFW_KEY_A:
-			g_Scene->MoveActiveCamera(glm::vec3(0.5f, 0.0f, 0.0f)); //ET: UPWARDS
+			//g_Scene->MoveActiveCamera(glm::vec3(0.5f, 0.0f, 0.0f)); //ET: UPWARDS Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(-1, 0, 0), 0.5f); //ET: Move camera left relative to view
 			break;
 
 		case GLFW_KEY_Q:
-			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.5f, 0.0f)); //ET: FORWARDS
+			g_Scene->MoveActiveCamera(glm::vec3(0.0f, 0.5f, 0.0f)); //ET: FORWARDS Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(0, 1, 0), 0.5f); //ET: Move camera up relative to view
 			break;
 
 		case GLFW_KEY_E:
-			g_Scene->MoveActiveCamera(glm::vec3(0.0f, -0.5f, 0.0f)); //ET: LEFT
+			//g_Scene->MoveActiveCamera(glm::vec3(0.0f, -0.5f, 0.0f)); //ET: LEFT Non Targetbound CAMERA
+			g_Scene->GetCurrentCamera()->MoveLocal(glm::vec3(0, -1, 0), 0.5f); //ET: Move camera down relative to view
 			break;
 
 		case GLFW_KEY_L:
-				lPressed = true;
+			lPressed = true;
 			break;
 
 		case GLFW_KEY_J:
@@ -405,42 +412,32 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			{
 				
 				std::cout << "j and up pressed " << std::endl;
-				g_Scene->ManipulateObject(3, 1.0f);
+				//g_Scene->ManipulateObject(3, 1.0f);
+				g_Scene->ManipulateObject(0, 0.5f); // Forwards Beast
+			
 			}
 			else if (lPressed)
 			{
 				
 				std::cout << "l and up pressed " << std::endl;
+				//g_Scene->ManipulateObject(1, 1.0f);
+				g_Scene->ManipulateObject(3, 0.5f);
 
-				g_Scene->ManipulateObject(1, 1.0f);
-
-			}
-			else if (rPressed)
-			{
-			
-				std::cout << "r and up pressed " << std::endl;
-				g_Scene->ManipulateObject(2, 20.0f);
 			}
 			break;
 
 		case GLFW_KEY_DOWN:
 			if (jPressed)
 			{
-				
 				std::cout << "j and down pressed " << std::endl;
-				g_Scene->ManipulateObject(3, -1.0f);
+				//g_Scene->ManipulateObject(3, -1.0f);
+				g_Scene->ManipulateObject(0, -0.5f); // Backwards Beast
 			}
 			else if (lPressed)
 			{
-				//call function for whatever
 				std::cout << "l and down pressed " << std::endl;
-				g_Scene->ManipulateObject(1, -1.0f);
-			}
-			else if (rPressed)
-			{
-				//call function for whatever
-				std::cout << "r and down pressed " << std::endl;
-				g_Scene->ManipulateObject(2, -20.0f);
+				//g_Scene->ManipulateObject(1, -1.0f);
+				g_Scene->ManipulateObject(3, -0.5f); // Down Beast
 			}
 			break;
 
@@ -450,14 +447,14 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			{
 
 				std::cout << "j and right pressed " << std::endl;
-				g_Scene->ManipulateObject(0, -1.0f);
+				//g_Scene->ManipulateObject(0, -1.0f);
+				g_Scene->ManipulateObject(1, -0.5f); // Right Beast
 			}
 
 			else if (rPressed)
 			{
-
-				std::cout << "r and right pressed " << std::endl;
-				g_Scene->ManipulateObject(4, -10.0f);
+				std::cout << "r and down pressed " << std::endl;
+				g_Scene->ManipulateObject(2, -45.0f);
 			}
 			break;
 
@@ -466,14 +463,15 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			{
 
 				std::cout << "j and left pressed " << std::endl;
-				g_Scene->ManipulateObject(0, 1.0f);
+				//g_Scene->ManipulateObject(0, 1.0f);
+				g_Scene->ManipulateObject(1, 0.5f); // Left Beast
 			}
 
 			else if (rPressed)
 			{
 
-				std::cout << "r and left pressed " << std::endl;
-				g_Scene->ManipulateObject(4,10.0f);
+				std::cout << "r and up pressed " << std::endl;
+				g_Scene->ManipulateObject(2, 45.0f);
 			}
 			break;
 			

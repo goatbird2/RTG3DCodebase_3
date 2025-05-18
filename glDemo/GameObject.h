@@ -59,6 +59,11 @@ public:
 	//ET: For getting the rotation of the tracked object to then change the camera
 	float GetYaw() const { return m_rot.y; }
 
+	//ET: For moving the object in a local direction
+	//ET: aka, I want keys to move the object in the direction it is facing
+	void MoveRelative(const glm::vec3& localDir, float amount);
+
+
 
 protected:
 
