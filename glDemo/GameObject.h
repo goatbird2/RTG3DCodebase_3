@@ -43,7 +43,8 @@ public:
 	RenderPass GetRP() { return m_RP; }
 	void MoveX(float _dir);
 	void MoveY(float _dir);
-	void Rotate(float _dir);
+	void RotateZ(float _dir);
+	void RotateY(float _dir);
 	void MoveZ(float _dir);
 
 

@@ -489,13 +489,16 @@ void Scene::ManipulateObject(int type,float dir)
 			}
 			else if (type == 2)
 			{
-				(*it)->Rotate(dir);
+				(*it)->RotateZ(dir);
 			}
 			else if (type == 3)
 			{
 				(*it)->MoveZ(dir);
 			}
-
+			else if (type == 4)
+			{
+				(*it)->RotateY(dir);
+			}
 		}
 	}
 }

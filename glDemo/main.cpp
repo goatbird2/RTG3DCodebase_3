@@ -411,6 +411,7 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			{
 				
 				std::cout << "l and up pressed " << std::endl;
+
 				g_Scene->ManipulateObject(1, 1.0f);
 
 			}
@@ -451,6 +452,13 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 				std::cout << "j and right pressed " << std::endl;
 				g_Scene->ManipulateObject(0, -1.0f);
 			}
+
+			else if (rPressed)
+			{
+
+				std::cout << "r and right pressed " << std::endl;
+				g_Scene->ManipulateObject(4, -10.0f);
+			}
 			break;
 
 		case GLFW_KEY_LEFT:
@@ -460,7 +468,13 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 				std::cout << "j and left pressed " << std::endl;
 				g_Scene->ManipulateObject(0, 1.0f);
 			}
-			
+
+			else if (rPressed)
+			{
+
+				std::cout << "r and left pressed " << std::endl;
+				g_Scene->ManipulateObject(4,10.0f);
+			}
 			break;
 			
 		default:
