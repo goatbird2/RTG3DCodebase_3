@@ -72,32 +72,40 @@ void Camera::Tick(float _dt)
 	//ET: This will override any manual camera movement when a follow target is set!
 	if (m_followTarget) {
 		glm::vec3 targetPos = m_followTarget->GetPos();
-		glm::vec3 offset(0.0f, 5.0f, -4.0f); //ET: We can adjust the offset as needed!!!
-		m_pos = targetPos + offset;
+		float yaw = glm::radians(m_followTarget->GetYaw()); //ET: Get the yaw of the tracked object
+
+		//ET: We can adjust the offset as needed!!!
+		glm::vec3 localOffset(0.0f, 5.0f, -4.0f); // Example offset values, adjust as needed.
+
+		// ET: Rotate the offset by the creature's yaw
+		glm::mat4 rot = glm::rotate(glm::mat4(1.0f), yaw, glm::vec3(0, 1, 0));
+		glm::vec3 rotatedOffset = glm::vec3(rot * glm::vec4(localOffset, 1.0f));
+
+		m_pos = targetPos + rotatedOffset;
 		m_lookAt = targetPos;
 
-	// Recalculate aspect ratio (we could also pass it as an argument if the screen size changes)
-	// Here, we're just keeping the logic from the original code:
-	// ET: Ensuring aspect ratio is valid by checking screen dimensions
-	// COMMENTED OUT: Using m_aspect_ratio instead of recalculating it here
-	// if (_screenWidth > 0 && _screenHeight > 0) {
-	//    m_aspect_ratio = _screenWidth / _screenHeight;
-	// }
-	// else {
-	//    m_aspect_ratio = 1.0f;  // Default to a 1:1 aspect ratio if either dimension is zero or invalid
-	// }
+		// Recalculate aspect ratio (we could also pass it as an argument if the screen size changes)
+		// Here, we're just keeping the logic from the original code:
+		// ET: Ensuring aspect ratio is valid by checking screen dimensions
+		// COMMENTED OUT: Using m_aspect_ratio instead of recalculating it here
+		// if (_screenWidth > 0 && _screenHeight > 0) {
+		//    m_aspect_ratio = _screenWidth / _screenHeight;
+		// }
+		// else {
+		//    m_aspect_ratio = 1.0f;  // Default to a 1:1 aspect ratio if either dimension is zero or invalid
+		// }
 
-	// We already have m_aspect_ratio set from Init(), no need to do it again here:
-	// float aspectRatio = m_aspect_ratio > 0 ? m_aspect_ratio : 1.0f;
+		// We already have m_aspect_ratio set from Init(), no need to do it again here:
+		// float aspectRatio = m_aspect_ratio > 0 ? m_aspect_ratio : 1.0f;
 
 	}
- else {
+	else {
 		// ET: Free camera logic (spherical coordinates)
 		// Calculate theta and phi in radians
 		const float theta = glm::radians<float>(m_theta);
 		const float phi = glm::radians<float>(m_phi);
 		m_lookAt = m_pos + glm::vec3(sinf(phi) * cosf(theta), sinf(theta), cosf(phi) * cosf(theta));
-		}
+	}
 
 	// Update the view matrix using the camera position and look-at target
 	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, glm::vec3(0, 1, 0));
@@ -106,9 +114,10 @@ void Camera::Tick(float _dt)
 	// COMMENTED OUT: Aspect ratio is already stored in m_aspect_ratio
 	// m_projectionMatrix = glm::perspective(glm::radians(m_fovY), aspectRatio, m_nearPlane, m_farPlane);
 	m_projectionMatrix = glm::perspective(glm::radians(m_fovY), m_aspect_ratio, m_nearPlane, m_farPlane);
-}
+
 	// Optional: You can print the view matrix or lookAt to verify camera positions
 	// cout << glm::to_string(m_lookAt) << endl;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Load() - Load camera settings from a file

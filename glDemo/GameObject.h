@@ -56,6 +56,9 @@ public:
 	float m_pulseBaseScale = 0.2f; //ET: Base scale
 	float m_pulseTime = 0.0f; //ET: goes up over time
 
+	//ET: For getting the rotation of the tracked object to then change the camera
+	float GetYaw() const { return m_rot.y; }
+
 
 protected:
 
