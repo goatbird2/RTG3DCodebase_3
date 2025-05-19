@@ -1,5 +1,6 @@
 
 #include "ArcballCamera.h"
+#include "stringHelp.h"
 
 using namespace std;
 using namespace glm;
@@ -23,6 +24,15 @@ void ArcballCamera::calculateDerivedValues() {
 	// calculate view and projection transform matrices
 	m_viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -m_radius)) * glm::eulerAngleX(-theta_) * glm::eulerAngleY(-phi_);
 	m_projectionMatrix = glm::perspective(glm::radians<float>(m_fovY), m_aspect, m_nearPlane, m_farPlane);
+}
+
+void ArcballCamera::Tick(float _dt)
+{
+	Camera::Tick(_dt);
+	
+	calculateDerivedValues();
+	
+	
 }
 
 
@@ -55,6 +65,7 @@ ArcballCamera::ArcballCamera() {
 // create a camera with orientation <theta, phi> representing Euler angles specified in degrees and Euclidean distance 'init_radius' from the origin.  The frustum / viewplane projection coefficients are defined in init_fovy, specified in degrees spanning the entire vertical field of view angle, init_aspect (w/h ratio), init_nearPlane and init_farPlane.  If init_farPlane = 0.0 (as determined by equalf) then the resulting frustum represents an infinite perspective projection.  This is the default
 ArcballCamera::ArcballCamera(float _theta, float _phi, float _radius, float _fovY, float _aspect, float _nearPlane, float _farPlane) {
 
+	m_type = "ARCBALL";
 	this->m_theta = _theta;
 	this->m_phi = _phi;
 	this->m_radius = std::max<float>(0.0f, _radius);
@@ -72,6 +83,17 @@ ArcballCamera::ArcballCamera(float _theta, float _phi, float _radius, float _fov
 }
 
 
+void ArcballCamera::Load(ifstream& _file)
+{
+	// Load camera settings from the file, like position, look-at, FOV, near/far planes
+	Camera::Load(_file);
+	StringHelp::Float(_file, "THETA", m_theta);
+	StringHelp::Float(_file, "PHI", m_phi);
+	StringHelp::Float(_file, "RADIUS", m_radius);
+
+}
+
+
 #pragma region Accessor methods for stored values
 
 // return the pivot rotation around the x axis (theta) in degrees
@@ -86,12 +108,27 @@ float ArcballCamera::getPhi() {
 	return m_phi;
 }
 
-void ArcballCamera::rotateCamera(float _dTheta, float _dPhi) {
+void ArcballCamera::rotateCamera(float _dTheta, float _dPhi) {  
+   m_theta += _dTheta;  
+   m_phi += _dPhi;  
 
-	m_theta += _dTheta;
-	m_phi += _dPhi;
+   // Ensure phi stays within 0 to 360 degrees for consistency  
+   if (m_phi >= 360.0f) m_phi -= 360.0f;  
+   if (m_phi < 0.0f) m_phi += 360.0f;  
 
-	calculateDerivedValues();
+   // Convert spherical coordinates to Cartesian coordinates  
+   float thetaRad = glm::radians(m_theta);  
+   float phiRad = glm::radians(m_phi);  
+
+   float x = m_radius * sinf(thetaRad) * cosf(phiRad);  
+   float y = m_radius * cosf(thetaRad);  
+   float z = m_radius * sinf(thetaRad) * sinf(phiRad);  
+
+   // Update the camera's position relative to the look-at point  
+   m_pos = m_lookAt + glm::vec3(x, y, z);  
+
+   // Recalculate derived values  
+   calculateDerivedValues();  
 }
 
 float ArcballCamera::getRadius() {

@@ -13,6 +13,7 @@
 #include "Shader.h"
 #include "GameObjectFactory.h"
 #include <assert.h>
+#include "ArcballCamera.h"
 
 Scene::Scene()
 {
@@ -444,6 +445,7 @@ void Scene::Init()
 //ET: Method for adding camera controls
 //ET: Works as "doorway" to move the camera from "outside" (Like main.cpp)
 void Scene::MoveActiveCamera(glm::vec3 movement) {
+	
 	if (m_useCamera) {
 		m_useCamera->Move(movement);
 	}
@@ -472,6 +474,12 @@ void Scene::MouseMoved(float dY, float dX)
 	{
 		m_useCamera->rotateCamera(dY, dX);
 
+	}
+	if (m_useCamera->GetType() == "ARCBALL")
+	{
+		//ET: Arcball camera movement
+		ArcballCamera* cam = static_cast<ArcballCamera*>(m_useCamera);
+		cam->rotateCamera(dY,dX);
 	}
 }
 

@@ -115,8 +115,8 @@ void Camera::Tick(float _dt)
 	// m_projectionMatrix = glm::perspective(glm::radians(m_fovY), aspectRatio, m_nearPlane, m_farPlane);
 	m_projectionMatrix = glm::perspective(glm::radians(m_fovY), m_aspect_ratio, m_nearPlane, m_farPlane);
 
-	// Optional: You can print the view matrix or lookAt to verify camera positions
-	// cout << glm::to_string(m_lookAt) << endl;
+	// Print the view matrix or lookAt to verify camera positions
+	//cout << glm::to_string(m_lookAt) << endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
