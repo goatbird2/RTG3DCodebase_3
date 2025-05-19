@@ -1,5 +1,6 @@
 #pragma once
 #include "core.h"
+#include <vector>
 #include <stdio.h>
 #include <string>
 #include "RenderPass.h"

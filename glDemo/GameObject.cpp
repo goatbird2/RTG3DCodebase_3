@@ -113,6 +113,40 @@ void GameObject::PreRender()
 	GLint pLocation;
 	Helper::SetUniformLocation(m_ShaderProg, "modelMatrix", &pLocation);
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&m_worldMatrix);
+
+	///ETR: tried to make instanciated GO rotate, didnt work tho
+	/*if (m_ShaderProg == 0) return;
+	glUseProgram(m_ShaderProg);
+
+	GLint pLocation;
+	Helper::SetUniformLocation(m_ShaderProg, "modelMatrix", &pLocation);
+	if (pLocation < 0) return;
+
+	if (!m_posList.empty()) {
+		for (const auto& pos : m_posList) {
+			glm::mat4 worldMatrix = glm::translate(glm::mat4(1.0f), pos);
+			worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
+			worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
+			worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+			worldMatrix = glm::scale(worldMatrix, m_scale);
+
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&worldMatrix);
+
+			Render();
+		}
+	}
+	else {
+		glm::mat4 worldMatrix = glm::translate(glm::mat4(1.0f), m_pos);
+		worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		worldMatrix = glm::rotate(worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		worldMatrix = glm::scale(worldMatrix, m_scale);
+
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&worldMatrix);
+
+		Render();
+	}
+}*/
 }
 
 void GameObject::Render()
